@@ -10,7 +10,6 @@ import {
     OptimizedTransparentUpgradeableProxy__factory
 } from "../build/types";
 
-let prefix = "0x000000000000000000000000"
 const writeFile = util.promisify(fs.writeFile);
 
 task('nft:deploy', 'deploy nft')

@@ -1,21 +1,40 @@
 import 'dotenv/config';
 import "@nomiclabs/hardhat-waffle";
-import '@typechain/hardhat'
 import "@nomiclabs/hardhat-etherscan";
+import '@typechain/hardhat'
 import './tasks/NFTBridge'
 
 
 /* note: boolean environment variables are imported as strings */
-const { PRIVATE_KEY } = process.env;
-const mnemonic = PRIVATE_KEY
 module.exports = {
     hardhat: {
-        accounts: [mnemonic],
-        url: 'http://127.0.0.1:8545',
-        chainId: 1337,
-        gas: 3000000,
-        gasPrice: "auto",
-        setTimeout: 30000000
+        initialBaseFeePerGas: 0,
+        chainId: 31337,
+        hardfork: "shanghai",
+        forking: {
+            url: process.env.ETH_MAINNET_URL || "",
+            enabled: false,
+        },
+    },
+    networks: {
+        opbnb_test: {
+            chainId: 5611,
+            url: process.env.OPBNB_TESTNET_URL || "",
+            accounts:
+                process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        },
+        combo_test: {
+            chainId: 91715,
+            url: process.env.COMBO_TESTNET_URL || "",
+            accounts:
+                process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        },
+        bsc_test: {
+            chainId: 97,
+            url: process.env.BSC_TESTNET_URL || "",
+            accounts:
+                process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        }
     },
     solidity: {
         compilers: [
