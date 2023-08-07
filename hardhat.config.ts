@@ -9,11 +9,6 @@ import './tasks/NFTBridge'
 const { PRIVATE_KEY } = process.env;
 const mnemonic = PRIVATE_KEY
 module.exports = {
-    zksolc: {
-        version: "1.3.10",
-        compilerSource: "binary",
-        settings: {},
-    },
     hardhat: {
         accounts: [mnemonic],
         url: 'http://127.0.0.1:8545',
@@ -22,20 +17,10 @@ module.exports = {
         gasPrice: "auto",
         setTimeout: 30000000
     },
-   
     solidity: {
         compilers: [
             {
                 version: "0.8.14",
-                settings: {
-                    optimizer: {
-                        enabled: true,
-                        runs: 200,
-                    },
-                }
-            },
-            {
-                version: "0.6.6",
                 settings: {
                     optimizer: {
                         enabled: true,
