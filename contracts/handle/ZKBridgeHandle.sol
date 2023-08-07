@@ -52,7 +52,7 @@ contract ZKBridgeHandle is Initializable, OwnableUpgradeable, IBridgeHandle, IZK
     }
 
     function estimateFees(uint16 _dstChainId, bytes calldata _payload, bytes calldata _adapterParam) external view returns (uint256 fee){
-        return 0;
+        fee = zkBridge.estimateFee(_dstChainId, _payload);
     }
 
 
