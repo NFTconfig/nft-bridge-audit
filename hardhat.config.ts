@@ -3,6 +3,8 @@ import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-etherscan";
 import '@typechain/hardhat'
 import './tasks/NFTBridge'
+import './tasks/ZKBridgeHandle'
+import './tasks/LayerzeroHandle'
 
 
 /* note: boolean environment variables are imported as strings */

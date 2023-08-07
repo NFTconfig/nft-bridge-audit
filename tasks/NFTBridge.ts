@@ -39,7 +39,6 @@ task('nft:deploy', 'deploy nft')
         await writeFile(argumentsPath, "module.exports = " + JSON.stringify(exports));
 
         console.log(`npx hardhat verify ${Proxy.address} --network ${args.chain}  --constructor-args arguments.js --contract contracts/OptimizedTransparentUpgradeableProxy.sol:OptimizedTransparentUpgradeableProxy`)
-
     })
 
 let abi = {
