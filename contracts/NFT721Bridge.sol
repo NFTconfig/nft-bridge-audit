@@ -60,6 +60,8 @@ contract NFT721Bridge is Initializable, OwnableUpgradeable, IUserApplication {
     // chainId => nonce
     mapping(uint16 => uint64) nonce;
 
+    mapping(bytes32 => bool) public completedTransfers;
+
     function initialize(uint16 _chainId) public initializer {
         __Ownable_init();
         chainId = _chainId;
@@ -87,7 +89,8 @@ contract NFT721Bridge is Initializable, OwnableUpgradeable, IUserApplication {
         require(msg.sender == address(bridgeHandle[_srcChainId]), "invalid bridgeHandle caller");
         Transfer memory transfer = _parseTransfer(_payload);
         require(transfer.toChain == chainId, "invalid target chain");
-
+        bytes32 hash = keccak256(abi.encode(_srcChainId, transfer.nonce));
+        require(!completedTransfers[hash], "Message already executed");
         address transferToken;
         if (transfer.tokenChain == chainId) {
             transferToken = transfer.tokenAddress;
@@ -102,6 +105,7 @@ contract NFT721Bridge is Initializable, OwnableUpgradeable, IUserApplication {
             // mint wrapped asset
             ZKBridgeErc721(wrapped).zkBridgeMint(transfer.to, transfer.tokenId, transfer.uri);
         }
+        completedTransfers[hash] = true;
         emit ReceiveNFT(transfer.nonce, transfer.tokenAddress, transferToken, transfer.tokenId, transfer.tokenChain, _srcChainId, transfer.to);
     }
 
