@@ -11,7 +11,6 @@ import "./token/ZKBridgeErc721.sol";
 import "./interfaces/IBridgeHandle.sol";
 import "./interfaces/IUserApplication.sol";
 
-//test
 contract NFT721Bridge is Initializable, OwnableUpgradeable, IUserApplication {
     using BytesLib for bytes;
 
